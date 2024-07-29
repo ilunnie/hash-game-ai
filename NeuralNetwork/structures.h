@@ -15,4 +15,10 @@ typedef struct layer
     int count;
 } Layer;
 
+typedef struct network
+{
+    Layer* layers;
+    int count;
+} Network;
+
 #endif
