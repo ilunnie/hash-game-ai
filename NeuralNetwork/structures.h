@@ -9,4 +9,10 @@ typedef struct neuron {
     int inputs;
 } Neuron;
 
+typedef struct layer
+{
+    Neuron* neurons;
+    int count;
+} Layer;
+
 #endif
