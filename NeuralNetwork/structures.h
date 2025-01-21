@@ -7,6 +7,8 @@ typedef struct neuron {
 
     double (*activate)(double);
     int inputs;
+
+    double output;
 } Neuron;
 
 typedef struct layer

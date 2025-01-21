@@ -3,27 +3,35 @@
 
 #include "neuralNetwork.h"
 #include "structures.h"
-#include "activationFunctions.h"
 
-double neuron_output(Neuron *n, double* inputs) {
+void neuron_propagation(Neuron *n, double* inputs) {
     double result = 0;
     for (int i = 0; i < n->inputs; i++)
         result += inputs[i] * n->weights[i];
     result += n->bias;
     
-    return n->activate(result);
+    n->output = n->activate(result);
 }
 
-double* layer_output(Layer *l, double* inputs) {
+void layer_propagation(Layer *l, double* inputs) {
+    for (int i = 0; i < l->count; i++)
+        neuron_propagation(&l->neurons[i], inputs);
+}
+
+double* layer_output(Layer *l) {
     double *output = (double*)malloc(l->count * sizeof(double));
     for (int i = 0; i < l->count; i++)
-        output[i] = neuron_output(&l->neurons[i], inputs);
+        output[i] = l->neurons[i].output;
     return output;
 }
 
-double* network_output(Network *nn, double* inputs) {
-    double* output = inputs;
-    for (int i = 0; i < nn->count; i++)
-        output = layer_output(&nn->layers[i], output);
-    return output;
+void forward_propagation(Network *nn, double* inputs) {
+    for (int i = 0; i < nn->count; i++) {
+        layer_propagation(&nn->layers[i], inputs);
+        inputs = layer_output(nn->layers[i]);
+    }
+}
+
+double* network_output(Network *nn) {
+    return layer_output(&nn->layers[nn->count - 1]);
 }
