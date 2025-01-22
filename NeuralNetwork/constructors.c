@@ -4,8 +4,8 @@
 #include "structures.h"
 
 Neuron neuron_init(
-    int input_size, double 
-    (*activate)(double), 
+    int input_size,
+    double (*activate)(double), 
     double (*initializer)()) 
 {
     Neuron neuron;
@@ -19,4 +19,20 @@ Neuron neuron_init(
     neuron.inputs = input_size;
 
     return neuron;
+}
+
+Layer layer_init(
+    int units,
+    int input_size, 
+    double (*activate)(double), 
+    double (*initializer)())
+{
+    Layer layer;
+    layer.count = units;
+
+    layer.neurons = malloc(units * sizeof(Neuron));
+    for (int i = 0; i < units; i++)
+        layer.neurons[i] = neuron_init(input_size, activate, initializer);
+
+    return layer;
 }
