@@ -28,7 +28,7 @@ double* layer_output(Layer *l) {
 void forward_propagation(Network *nn, double* inputs) {
     for (int i = 0; i < nn->count; i++) {
         layer_propagation(&nn->layers[i], inputs);
-        inputs = layer_output(nn->layers[i]);
+        inputs = layer_output(&nn->layers[i]);
     }
 }
 

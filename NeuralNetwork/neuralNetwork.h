@@ -5,7 +5,7 @@
 
 void neuron_propagation(Neuron *n, double *inputs);
 
-void layer_propagation(Neuron *l, double *inputs);
+void layer_propagation(Layer *l, double *inputs);
 double* layer_output(Layer *l);
 
 void forward_propagation(Network *nn, double *inputs);
