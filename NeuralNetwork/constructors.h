@@ -8,6 +8,6 @@ Neuron neuron_init(int input_size, double (*activate)(double), double (*initiali
 Layer layer_init(int units, int input_size, double (*activate)(double), double (*initializer)());
 
 Network network_init(int input_size);
-Network add_layer(Network *nn, int units, double (*activate)(double), double (*initializer)());
+void add_layer(Network *nn, int units, double (*activate)(double), double (*initializer)());
 
 #endif
